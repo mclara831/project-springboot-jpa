@@ -1,5 +1,7 @@
 package com.mariaclara.webservice.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,30 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
+    public List<User> getAllUsers(){
+        return repository.findAll();
+    }
+
+    public User findById(Integer id) {
+        return repository.findById(id).get();
+    }
+
     public User registerUser(UserRecordDTO user) {
         User obj = new User(user);
         return repository.save(obj);
+    }
+
+    public User updateUser(Integer id, UserRecordDTO user) {
+        User obj = findById(id);
+        obj.setName(user.name());
+        obj.setEmail(user.email());
+        obj.setPhone(user.phone());
+        obj.setPassword(user.password());
+        return repository.save(obj);
+    }
+
+    public void deleteUser(Integer id) {
+        repository.deleteById(id);
     }
 
 }
