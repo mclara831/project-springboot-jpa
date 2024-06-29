@@ -2,6 +2,8 @@ package com.mariaclara.webservice.entities;
 
 import java.io.Serializable;
 
+import com.mariaclara.webservice.dtos.UserRecordDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,4 +31,11 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String password;
+
+    public User(UserRecordDTO user) {
+        this.name = user.name();
+        this.email = user.email();
+        this.phone = user.phone();
+        this.password = user.password();
+    }
 }
