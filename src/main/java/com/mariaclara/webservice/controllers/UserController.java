@@ -2,6 +2,9 @@ package com.mariaclara.webservice.controllers;
 
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +36,9 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable Integer id){
-        return ResponseEntity.ok().body(service.findById(id));
+        User aux = service.findById(id);
+        aux.add(linkTo(methodOn(UserController.class).getAll()).withSelfRel());
+        return ResponseEntity.ok().body(aux);
     }
 
     @PostMapping("/save")
@@ -42,14 +47,13 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Integer id, @Valid UserRecordDTO user) {
+    public ResponseEntity<User> updateUser(@PathVariable Integer id,@RequestBody @Valid UserRecordDTO user) {
         return ResponseEntity.ok().body(service.updateUser(id, user));
     }
     
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
             service.deleteUser(id);
         return ResponseEntity.ok().body("User deleted successfully");
     }
-
 }

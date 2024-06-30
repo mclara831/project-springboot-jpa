@@ -2,6 +2,7 @@ package com.mariaclara.webservice.services;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,10 +31,7 @@ public class UserService {
 
     public User updateUser(Integer id, UserRecordDTO user) {
         User obj = findById(id);
-        obj.setName(user.name());
-        obj.setEmail(user.email());
-        obj.setPhone(user.phone());
-        obj.setPassword(user.password());
+        BeanUtils.copyProperties(user, obj);
         return repository.save(obj);
     }
 

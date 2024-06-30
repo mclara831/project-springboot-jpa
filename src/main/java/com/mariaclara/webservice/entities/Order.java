@@ -1,7 +1,9 @@
 package com.mariaclara.webservice.entities;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mariaclara.webservice.entities.enums.OrderStatus;
 
 import jakarta.persistence.Entity;
@@ -24,15 +26,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Order {
+public class Order implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Date moment;
+    private Instant moment;
     private OrderStatus orderStatus;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
+    @JsonIgnore
     private User client;
 }
