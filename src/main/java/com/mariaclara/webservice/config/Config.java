@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.mariaclara.webservice.entities.Category;
 import com.mariaclara.webservice.entities.Order;
+import com.mariaclara.webservice.entities.Product;
 import com.mariaclara.webservice.entities.User;
 import com.mariaclara.webservice.entities.enums.OrderStatus;
+import com.mariaclara.webservice.repositories.CategoryRepository;
 import com.mariaclara.webservice.repositories.OrderRepository;
+import com.mariaclara.webservice.repositories.ProductRepository;
 import com.mariaclara.webservice.repositories.UserRepository;
 
 @Configuration
@@ -21,6 +25,12 @@ public class Config implements CommandLineRunner {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -34,6 +44,20 @@ public class Config implements CommandLineRunner {
         var o3 = new Order(null, Instant.parse("2024-06-10T16:48:00Z"), OrderStatus.WAITING_PAYMENT, u1);
 
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        var cat1 = new Category(null, "Electronics");
+        var cat2 = new Category(null, "Books");
+        var cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+
+        var p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+        var p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+        var p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+        var p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+        var p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+
+        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
     }
 
 }
