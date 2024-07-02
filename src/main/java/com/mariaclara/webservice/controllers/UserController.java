@@ -31,7 +31,9 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
-        return ResponseEntity.ok().body(service.getAllUsers());
+        var list = service.getAllUsers();
+        list.forEach(user -> user.add(linkTo(methodOn(UserController.class).getById(user.getId())).withSelfRel()));
+        return ResponseEntity.ok().body(list);
     }
 
     @GetMapping("/{id}")

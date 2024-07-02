@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.hateoas.RepresentationModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mariaclara.webservice.dtos.UserRecordDTO;
 
 import jakarta.persistence.Entity;
@@ -20,12 +21,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_user")
+@Table(name = "TB_USERS")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class User extends RepresentationModel<User> implements Serializable {
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -36,6 +38,7 @@ public class User extends RepresentationModel<User> implements Serializable {
     private String phone;
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
@@ -78,6 +81,4 @@ public class User extends RepresentationModel<User> implements Serializable {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
-
-    
 }
