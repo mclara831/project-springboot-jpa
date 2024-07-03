@@ -1,12 +1,14 @@
 package com.mariaclara.webservice.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mariaclara.webservice.entities.Order;
 import com.mariaclara.webservice.repositories.OrderRepository;
+import com.mariaclara.webservice.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class OrderService {
@@ -19,6 +21,7 @@ public class OrderService {
     }
 
     public Order getById(Integer id) {
-        return orderRepository.findById(id).get();
+        Optional<Order> order = orderRepository.findById(id);
+        return order.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }
