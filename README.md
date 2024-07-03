@@ -1,7 +1,6 @@
 # Projeto SpringBoot E-commerce
-	![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-
-    ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
 
 Esse projeto representa a uma simples estrutura de um sistema de em-commerce. Ele foi contruído utilizando Java, Java Spring, Spring JPA, Spring Hateoas, Postman para testar as requisições e o H2database como banco de dados em memória para teste.
 
