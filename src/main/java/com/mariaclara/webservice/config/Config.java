@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import com.mariaclara.webservice.entities.Category;
 import com.mariaclara.webservice.entities.Order;
 import com.mariaclara.webservice.entities.OrderItem;
+import com.mariaclara.webservice.entities.Payment;
 import com.mariaclara.webservice.entities.Product;
 import com.mariaclara.webservice.entities.User;
 import com.mariaclara.webservice.entities.enums.OrderStatus;
@@ -44,7 +45,7 @@ public class Config implements CommandLineRunner {
         var u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
         userRepository.saveAll(Arrays.asList(u1, u2));
 
-        var o1 = new Order(null, Instant.parse("2024-06-30T14:04:00Z"), OrderStatus.WAITING_PAYMENT, u2);
+        var o1 = new Order(null, Instant.parse("2024-06-30T14:04:00Z"), OrderStatus.PAID, u2);
         var o2 = new Order(null, Instant.parse("2024-06-15T15:03:00Z"), OrderStatus.WAITING_PAYMENT, u2);
         var o3 = new Order(null, Instant.parse("2024-06-10T16:48:00Z"), OrderStatus.WAITING_PAYMENT, u1);
 
@@ -77,6 +78,10 @@ public class Config implements CommandLineRunner {
         OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+        Payment pay1 = new Payment(null,Instant. parse("2024-06-30T15:30:00Z"), o1);
+        o1.setPayment(pay1);
+        orderRepository.save(o1);
     }
 
 }
